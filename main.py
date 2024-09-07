@@ -1,5 +1,5 @@
 from fastapi import FastAPI 
-from Models.product import product
+from models.product import Product
 
 app = FastAPI()
 
@@ -41,8 +41,31 @@ def get_products(id: int):
 def get_products_by_stock(stock: int):
     return list(filter(lambda item: item["stock"] == stock, products))
 
+#  para crear un producto
 
 @app.post("/products")
 def create_product(product: Product):
     products.append(product)
     return products
+
+# para modificar un producto
+
+@app.put("/products/{id}")
+def update_product(id: int, product: Product):
+    for index, item in enumerate(products):
+        if item['id'] == id:
+            products[index]["name"] = product.name
+            products[index]["price"] = product.price
+            products[index]["stock"] = product.stock
+    return products
+
+# para borrar un producto
+
+@app.delete("/products/{id}")
+def delete_product(id: int):
+    for item in products:
+         if item['id'] == id:
+            products.remove(item)
+
+    return products
+    

@@ -1,9 +1,10 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class Product(BaseModel):
     
-    id: int
+    id: Optional[int] = None
     name: str
-    price: int
+    price: float
     stock: int
