@@ -1,5 +1,8 @@
 from fastapi import FastAPI, APIRouter, Query, Path
+from fastapi.responses import JSONResponse
 from models.product import Product
+from databases.products import upload_csv
+
 
 
 router = APIRouter()
@@ -63,3 +66,10 @@ def delete_product(id: int):
             products.remove(item)
 
     return products
+
+@router.post("/products_csv/")
+def upload_products():
+    data = upload_csv()
+    return JSONResponse(content=data.to_dict(orient='records'))
+
+    
