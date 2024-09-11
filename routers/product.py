@@ -1,9 +1,11 @@
 from fastapi import FastAPI, APIRouter, Query, Path
 from fastapi.responses import JSONResponse
 from models.product import Product
-from databases.products import upload_csv
+import pandas as pd
+import json
+from  databases.products import read_products
 
-
+dFrame = pd.read_csv("databases/productos_heladeria.csv")
 
 router = APIRouter()
 products =[
@@ -67,27 +69,15 @@ def delete_product(id: int):
 
     return products
 
-#@router.post("/products_csv/")
-#def upload_products():
- #  return upload_csv()
-
-# para leer el archibo csv
 
 @router.get("/products/all/")
 def products_all():
-    return(upload_csv())
+    products = read_products()
 
+    return products
 
-# para añadir productos al archivo csv
-
-@router.put("/products/add/")
-def product_add(product: Product):
-    
-
-
-
-
-
-
-
-
+@router.post("/product/add")    
+def add_product(product: Product):
+    products = products_all()
+    products.append(product)
+    return products
