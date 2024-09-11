@@ -16,9 +16,10 @@ class Product(BaseModel):
 
 
 products_csv = "databases/productos_heladeria.csv"
-dFrame = pd.read_csv(products_csv)
+
 
 def read_products():
+    dFrame = pd.read_csv(products_csv)
     Json_data = dFrame.to_json(orient="records")
     json_out = json.loads(Json_data)
     return json_out
@@ -34,16 +35,3 @@ def product_add(product: Product):
         write_product = csv.DictWriter(archivo, fieldnames=campos)
         write_product.writerow(new_product)
         
-
-add_product = [
-
-    4,
-    "canasta 3",
-    5000,
-    "tres bolas de helado servidas en una canasta de galleta, decorado con una galleta de corazon salsa y chispitas"
-  
-]
-
-#add_product(new_product)
-#read_products()
-#print(read_products())
