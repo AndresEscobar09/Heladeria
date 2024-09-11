@@ -1,34 +1,18 @@
 from io import StringIO
 from fastapi import UploadFile,File, HTTPException
+from fastapi.responses import JSONResponse
 import pandas as pd
 
 
-data = {
-    "Item": ["cono 1","cono 2","canasta 2"],
-    "Precio": [2000,3800,3800],
-    "Description": ["una bola de helado servida en un cono de galleta, decorado con una galleta de corazon salsa y chispitas","dos bolas de helado servidas en un cono de galleta, decorado con una galleta de corazon salsa y chispitas","dos bolas de helado servidas en una canasta de galleta, decorado con una galleta de corazon salsa y chispitas",] 
-}
+dFrame = pd.read_csv("databases/productos_heladeria.csv", encoding="utf-8")
 
+#print(dFrame)
+def upload_csv():
+    Json_data = dFrame.to_json(orient = "records",)
 
+    #print(JSONResponse(content=dFrame.to_dict(orient="records")))
 
+    #return JSONResponse(content=dFrame.to_dict(orient="records"))
+    return Json_data
 
-
-dframe = {}
-
-async def upload_csv(file: UploadFile = File("databases/productos_heladeria.csv")):
-    
-    try:
-        # se lee el archivo csv en un dataframe de pandas
-        content = await file.read()
-        df = pd.read_csv(StringIO(content.decode('utf-8')))
-        
-        # se guarda el dataframe en el diccionario usando como "key" el nombre del archivo
-        dframe[file.productos_heladeria] = df
-        
-      #  return "el archivo se ha subido con exito"
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
-    
-
-#dframe.to_csv('databases/productos_heladeria.csv',index=False)
-
+print(upload_csv())

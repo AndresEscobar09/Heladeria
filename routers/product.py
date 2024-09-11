@@ -67,9 +67,27 @@ def delete_product(id: int):
 
     return products
 
-@router.post("/products_csv/")
-def upload_products():
-    data = upload_csv()
-    return JSONResponse(content=data.to_dict(orient='records'))
+#@router.post("/products_csv/")
+#def upload_products():
+ #  return upload_csv()
 
+# para leer el archibo csv
+
+@router.get("/products/all/")
+def products_all():
+    return(upload_csv())
+
+
+# para añadir productos al archivo csv
+
+@router.put("/products/add/")
+def product_add(product: Product):
     
+
+
+
+
+
+
+
+
