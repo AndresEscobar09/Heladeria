@@ -1,9 +1,8 @@
-from fastapi import FastAPI, APIRouter, Query, Path
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, Query, Path # type: ignore
 from models.product import Product
 import pandas as pd
-import json
-from  databases.products import read_products
+from databases.products import read_products
+from databases.products import product_add
 
 dFrame = pd.read_csv("databases/productos_heladeria.csv")
 
@@ -78,6 +77,9 @@ def products_all():
 
 @router.post("/product/add")    
 def add_product(product: Product):
-    products = products_all()
-    products.append(product)
-    return products
+    product_add(product)
+    #print(type(product))
+    return 'el producto fue creado exitosamente'
+
+
+

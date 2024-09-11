@@ -1,5 +1,5 @@
-from fastapi import FastAPI#, Query, Path
-#from models.product import Product
+from fastapi import FastAPI# type: ignore #, Query, Path
+
 from routers.product import router as product_router
 
 
