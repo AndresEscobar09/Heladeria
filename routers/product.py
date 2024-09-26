@@ -12,7 +12,7 @@ products =[
         "id": 1,
         "name":"Cono 1",
         "price": 2000,
-        "stock":81
+        "description": "helado de 1 bolita"
     
 
     },
@@ -20,7 +20,7 @@ products =[
         "id": 2,
         "name":"Cono 2",
         "price": 3800,
-        "stock":100
+        "description":"helado de 2 bolitas"
         
     }
 ]
@@ -55,7 +55,7 @@ def update_product(id: int, product: Product):
         if item['id'] == id:
             products[index]["name"] = product.name
             products[index]["price"] = product.price
-            products[index]["stock"] = product.stock
+            products[index]["description"] = product.description
     return products
 
 # para borrar un producto
@@ -80,6 +80,12 @@ def add_product(product: Product):
     product_add(product)
     #print(type(product))
     return 'el producto fue creado exitosamente'
+
+@router.put("/product/{id}")
+def edit_product(id: int, product: Product):
+    product_edit(id,product)
+    return("el producto fue modificado exitosamente")
+
 
 
 

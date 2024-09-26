@@ -35,3 +35,13 @@ def product_add(product: Product):
         write_product = csv.DictWriter(archivo, fieldnames=campos)
         write_product.writerow(new_product)
         
+
+def product_edit(id: int,product: Product):
+    with open(products_csv, mode ='r') as archivo:
+        reader = csv.DictReader(archivo)
+        products = list(reader)
+#para buscar el producto a modificar
+
+    
+
+    return 0
